@@ -87,7 +87,7 @@ export class JiraAPI {
       AND issuetype = "${issueType}"
       ${statusesString ? `AND status in (${statusesString})` : ''}
       ${component ? `AND component = "${component}"` : ''}
-      AND statuscategory not in ("Done")
+      AND status not in ("Done")
     `;
     const data = {
       jql,
@@ -206,7 +206,7 @@ export class JiraAPI {
         statuses
           .flatMap(status => status.statuses)
           .filter(
-            status => status.statusCategory?.name !== DONE_STATUS_CATEGORY,
+            status => status?.name !== DONE_STATUS_CATEGORY,
           )
           .map(it => it.name)
           .reduce((acc, val) => {
