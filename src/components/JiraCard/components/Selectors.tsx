@@ -77,7 +77,7 @@ export const Selectors = ({
           labelId="select-statuses-label"
           id="select-statuses"
           multiple
-          value={statusesNames}
+          value={statusesNames.length === 0 ? ['Open'] : statusesNames}
           onChange={handleStatusesChange}
           input={<Input />}
           renderValue={selected =>
@@ -86,9 +86,9 @@ export const Selectors = ({
           MenuProps={MenuProps}
           onClose={fetchProjectInfo}
         >
-          {statuses.map(status => (
+          {statuses.map((status, index) => (
             <MenuItem key={status} value={status}>
-              <Checkbox checked={statusesNames.indexOf(status) > -1} />
+              <Checkbox checked={statusesNames.indexOf(status) > -1 || statusesNames.length === 0 && index === 0} />
               <ListItemText primary={status} />
             </MenuItem>
           ))}
