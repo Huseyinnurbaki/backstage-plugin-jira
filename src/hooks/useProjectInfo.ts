@@ -29,7 +29,11 @@ export const useProjectInfo = (
   const getProjectDetails = useCallback(async () => {
     try {
       setTimeout(() => (document.activeElement as HTMLElement).blur(), 0);
-      return await api.getProjectDetails(projectKey, component, statusesNames);
+      let _statusesNames = statusesNames;
+      if (_statusesNames.length === 0) {
+        _statusesNames = ['Open']
+      }
+      return await api.getProjectDetails(projectKey, component, _statusesNames);
     } catch (err) {
       return handleError(err);
     }
